@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS Web App For Suhora</title>
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/esri-leaflet"></script>
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- search bar -->
+    <input type="text" id="search" placeholder="Search for address">
+    <button onclick="searchLocation()">Search</button>
+
+    <script>
+        // Leaflet map
+        var map = L.map('map').setView([0, 0], 2);
+
+        // base maps
+        var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var satelliteLayer = L.esri.basemapLayer('Imagery').addTo(map);
+
+        // Layer control
+        var baseMaps = {
+            "OpenStreetMap": osmLayer,
+            "Satellite": satelliteLayer
+        };
+        L.control.layers(baseMaps).addTo(map);
+
+        // control for editing features
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+        var drawControl = new L.Control.Draw();
+        map.addControl(drawControl);
+
+        // Function to search for a location
+        function searchLocation() {
+            var searchTerm = document.getElementById('search').value;
+            if (searchTerm) {
+                L.Control.geocoder({
+                    defaultMarkGeocode: false
+                })
+                    .on('markgeocode', function (e) {
+                        map.fitBounds(e.geocode.bbox);
+                    })
+                    .addTo(map)
+                    .geocode(searchTerm);
+            }
+        }
+
+        // Event handlers for editing features
+        map.on('draw:created', function(e) {
+            drawnItems.addLayer(e.layer);
+        });
+
+        map.on('draw:edited', function(e) {
+            // Handle edited features
+        });
+
+        map.on('draw:deleted', function(e) {
+            // Handle deleted features
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 80vh;
+}
+
+#upload-form {
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label[for="file"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+label[for="file"]:hover {
+    background-color: #45a049;
+}
+
+/*search bar */
+.leaflet-control-geocoder.leaflet-control {
+    margin-top: 10px;
+}
+
+/*layer control*/
+.leaflet-control-layers {
+    margin-top: 10px;
+}
+
+/*spatial data editing buttons */
+#edit-buttons {
+    margin-top: 10px;
+}
+
+button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #005A7E;
+}
