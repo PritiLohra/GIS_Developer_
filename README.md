@@ -1,4 +1,4 @@
-# GIS_Developer_
+# GIS_Web_App_
 
 ## Application 1
 This web application is designed for Geographic Information System (GIS) functionalities, allowing users to visualize, edit, and search for spatial data. It utilizes the Leaflet library for interactive maps and includes features like drawing, editing, and searching for locations.
